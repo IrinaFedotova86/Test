@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,13 @@ public class Index {
     public void setUp(){
         wd = new ChromeDriver();
         wd.get("file:///C:/Users/ASUS%20Vivo%20Book/Downloads/21.index.html");
+    }
+
+    @Test
+    public void tableTest(){
+        WebElement canada = wd.findElement(By.cssSelector("tr:nth-child(3)>td:last-child"));
+        WebElement canada1 = wd.findElement(By.xpath("//*[text()='Canada']"));
+        Assert.assertEquals(canada.getText(), "Canada");
     }
 
     @Test
@@ -35,5 +43,31 @@ public class Index {
         //by id
         WebElement el2 = wd.findElement(By.id("nav"));
         WebElement el3 = wd.findElement(By.cssSelector("#nav"));
+
+        //by attribute
+        WebElement input = wd.findElement(By.cssSelector("[placeholder='Type your name']"));
+        WebElement input1 = wd.findElement(By.xpath("//*[@placeholder = 'Type your name']"));
+
+        //start
+        WebElement inp = wd.findElement(By.cssSelector("[placeholder ^= 'Type']"));
+        WebElement input3 = wd.findElement(By.xpath("//*[starts-with(@placeholder,'Type')]"));
+        //end
+        WebElement inp1 = wd.findElement(By.cssSelector("[placeholder $= 'name']"));
+        WebElement inp3 = wd.findElement(By.xpath("//*[contains(@placeholder, 'name')]"));
+
+        //contains
+        WebElement inp2 = wd.findElement(By.cssSelector("[placeholder *= 'your']"));
+        WebElement inp31 = wd.findElement(By.xpath("//*[contains(@placeholder, 'your')]"));
+
+        //by name
+        WebElement inputs = wd.findElement(By.cssSelector("[name='sername']"));
+        WebElement inputs1 = wd.findElement(By.name("sername"));
+
+        //By.LinkText & By.printialLinkText
+
+        WebElement a = wd.findElement(By.linkText("Item 2"));
+        WebElement a1 = wd.findElement(By.partialLinkText("m 2"));
+
+
     }
 }
